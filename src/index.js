@@ -1,23 +1,42 @@
-require('dotenv').config()
-const express = require('express')
+//  connecting the databse in the index file  USING IIFI IN JS BUT THE INDEX IS MORE POLLUTED SO NOT A BETTTER APPROACH //
 
-const app = express()
-const port = process.env.PORT
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
- 
-app.get("/chat",(req,res)=>{
-    res.send("<h1>hello this is my new tab </h1>")
-})
-app.get("/login",(req,res)=>{
-    res.send("<p>hello this is a para </h3>")
+/*
+import express from"expres";
+import { DB_Name } from "./constants";
+const app=express();
 
-})
-app.get("/chai",(req,res)=>{
-    res.send("heello this is new para at chai ")
+;(async()=>{
+  try {
+    
+    await  mongooose.connect(`${process.env.Database_URI}/${DB_Name}`)
+
+    app.on("error",(error)=>{
+      console.log("error",error);
+    }) // event  of error if the app is not able to talk to database;
+
+    app.listen(process.env.PORT,()=>{
+      console.log(`the app is listening on  ${process.env.PORT}`);
+      
+    }) 
+
+  } catch (error) {
+    console.log("error at connecting the mongodv",error);
+    
+    
+  }
+})()
+  */
+
+// SECOND APPROACH TO CONNECT THE DATABASE - MAKE A DIFF FILE AND EXPORT THE FUNCTION AND EXECUTE IT --
+
+import dotenv from 'dotenv'
+
+import connectDB from './db/database.js';
+
+dotenv.config({
+  path:'./env'
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+connectDB()
+
+
