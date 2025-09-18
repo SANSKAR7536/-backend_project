@@ -1,5 +1,5 @@
 import express from "express";
- import cors from "cors"
+import cors from "cors"
 import cookieParser from "cookie-parser";
 const app=express();
 
@@ -18,6 +18,7 @@ const app=express();
 
   app.use(express.static("public")) // middleware to save all the aserts like pdf image video  etc
 
+  
   app.use(cookieParser()) //middleware for  the cookie done by an external cookie parser 
 
 
