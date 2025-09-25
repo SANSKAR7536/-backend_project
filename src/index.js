@@ -32,7 +32,7 @@ const app=express();
 import dotenv from 'dotenv'
 
 import connectDB from './db/database.js';
-import app from "./app.js"
+import {app} from "./app.js"
 
 dotenv.config({
   path:'./env'
@@ -45,8 +45,8 @@ connectDB()
     
   })
 })
-.caatch((error)=>{
-  console.log();
+.catch((error)=>{
+  console.log(error);
   
 })
 

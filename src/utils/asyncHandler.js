@@ -11,10 +11,11 @@
 
 // using the promise verion to connect it //
 
-const asyncHandler= (requesthandler)=>{
+const asyncHandler= (requestHandler)=>{
     return (req,res,err,next)=>{
         Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err))
     }
+    
 }
 
 export {asyncHandler}
