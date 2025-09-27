@@ -7,7 +7,7 @@ const app=express();
  app .get('/',(req,res)=>{
     res.status(200).json({
         message:" here it is my first code ",
-        data:req.body
+        
     })
  })  // http://localhost:8000/
  // this is   wroking 
@@ -31,18 +31,18 @@ const app=express();
 
   //routes import
  // import userRouter from "./routes/user.route.js"
-  
-   app.use('/user',userRouter)   // best practice to use this  as api then version then route
+
 
 
 
 
   
   // routes
- app.use('api/v1/user',userRouter)   // best practice to use this  as api then version then route   
-  http://localhost:8000/user/api/v1/user/register //
+ app.use('/api/v1/user',userRouter)   // best practice to use this  as api then version then route   
+  //http://localhost:8000/user/api/v1/user/register //
 
   // this is not working 
+
 
   
 

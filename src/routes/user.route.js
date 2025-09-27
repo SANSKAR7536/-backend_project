@@ -4,8 +4,8 @@
 
  const router=Router();
 
-router.post('/register', registerUser);
+router.route("/register").post(registerUser)
 
     // hit url /register then it call the post https method 
-export default router;    //  import by any name you want // userRouter  in our case 
+  export default router;    //  import by any name you want // userRouter  in our case 
   
