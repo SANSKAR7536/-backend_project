@@ -41,7 +41,7 @@ dotenv.config({
 connectDB()
 .then(()=>{
   app.listen(process.env.PORT||8000,()=>{
-    console.log(`serrver is runiing  ${process.env.PORT}`);
+    console.log(`serrver is running  ${process.env.PORT}`);
     
   })
 })
@@ -49,5 +49,8 @@ connectDB()
   console.log(error);
   
 })
+
+
+
 
 

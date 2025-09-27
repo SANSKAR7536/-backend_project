@@ -1,8 +1,16 @@
-import express from "express";
+import express from "express"
+ import userRouter from "./routes/user.route.js"
 import cors from "cors"
 import cookieParser from "cookie-parser";
 const app=express();
 
+ app .get('/',(req,res)=>{
+    res.status(200).json({
+        message:" here it is my first code ",
+        data:req.body
+    })
+ })  // http://localhost:8000/
+ // this is   wroking 
 
             // setting middleware //
  app.use(cors({
@@ -22,16 +30,28 @@ const app=express();
   app.use(cookieParser()) //middleware for  the cookie done by an external cookie parser ..
 
   //routes import
-  import userRouter from "./routes/user.route.js"
+ // import userRouter from "./routes/user.route.js"
+  
+   app.use('/user',userRouter)   // best practice to use this  as api then version then route
+
+
+
 
   
   // routes
-  app.use("/api/v1/users",userRouter)     // best practice to use this  as api then version then route   
+ app.use('api/v1/user',userRouter)   // best practice to use this  as api then version then route   
+  http://localhost:8000/user/api/v1/user/register //
+
+  // this is not working 
+
+  
+
+
   
   //  whenever hit this it will pass the route to userRouter and then it wil call  register method then post then async handler do its job  and then we  have  got or api response that is  " here it is my first code "
 
 
- // htpps:localhost:8000/api/v1/users/register   // this is the url to hit the api
+ 
 
 
 

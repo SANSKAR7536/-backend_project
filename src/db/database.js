@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import { DB_Name} from "../constants.js";   // ✅ match naming
-
+import { DB_Name} from "../constants.js";   
 const connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(
@@ -11,7 +10,7 @@ const connectDB = async () => {
       `✅ MongoDB connected at DB HOST :: ${connectionInstance.connection.host}`
 
     );
-    console.log(  "the port is running at the ",process.env.PORT);
+   
     
   } catch (error) {
     console.error(`❌ MongoDB connection error: ${error}`);
