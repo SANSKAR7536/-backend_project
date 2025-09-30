@@ -4,13 +4,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 const app=express();
 
- app .get('/',(req,res)=>{
-    res.status(200).json({
-        message:" here it is my first code ",
-        
-    })
- })  // http://localhost:8000/
- // this is   wroking 
+
 
             // setting middleware //
  app.use(cors({
@@ -41,7 +35,10 @@ const app=express();
  app.use('/api/v1/user',userRouter)   // best practice to use this  as api then version then route   
   //http://localhost:8000/user/api/v1/user/register //
 
-  // this is not working 
+
+
+  
+  
 
 
   
