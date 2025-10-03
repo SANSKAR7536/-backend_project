@@ -3,7 +3,29 @@ import { User } from "../model/uer.model.js"
 import { ApiError }  from "../utils/apiError.js"
  import { uploadOnCloudinary } from "../utils/cloudinary.js"
  import { ApiResponse } from "../utils/apiResponse.js"
+
 // first  make a use of helper file  asynchandler form utility
+
+
+   const generateAceesTokenAndRefreshToken=async(userId)=>{
+    try {
+      
+      const user = await User.findById(userId)
+      const accessToken=user.generateAcessToken();
+       const refreshToken=user.generateRefershToken()
+
+       user.refreshToken=refreshToken
+       await  user.save( { validateBeforeSave:false });     // to remove passwword validation 
+
+        return {accessToken,refreshToken}
+
+    } catch (error) {
+      throw new ApiError(500,"something went wrong  while generating token ")
+      
+    }
+
+         
+   }
 
  const registerUser=asyncHandler(async(req,res)=>{           // WHY ASYNC IF THE ASYNCHANDLER is already  has   as we have to talk  to  db so it will take time 
                                            // method to register  //
@@ -93,4 +115,104 @@ import { ApiError }  from "../utils/apiError.js"
     // 
 
     })
- export {registerUser};   // export as the name not by choice of your 
+
+
+     const loginUser=asyncHandler(async(req,res)=>{
+                                              // get user data 
+      const {username,email,password}=req.body; 
+
+       if(!username || !email) throw new ApiError(400," username or password is required ");  
+                  // what type of login you want it depends 
+
+                // find the user 
+      
+       const user= await User.findOne({
+        $or:[{username},{email}]
+      })  // find the user by username or email both 
+
+      if(!user) throw new ApiError(400," user doesnot exist");
+
+              /// check the password
+
+      // now the function that we had made  is not   used by the User .is coorect something 
+      // the function that  we want to use is directly attached to the  instance we have got  
+       // heere the instance is the user  .so all the function should be  used by this method  
+
+
+        const isPasswordValid=await user.isPasswordCorrect( password)
+
+        if(!isPasswordValid) throw new ApiError(401,"Invalid user  ( password is not correct ")
+
+
+
+          // generate acces token and refresh
+          
+            const {accessToken,refreshToken}=await generateAceesTokenAndRefreshToken(user._id)
+
+
+          // send it by cookies 
+
+          const loginInUser=await User.findById(user._id).select("-password -refreshToken")
+
+
+          // options for cookies 
+           
+          const options={
+            httpsOnly:true,
+            secure:true
+          }
+
+
+          return res
+          .status(200)
+          .cookie("accessToken",accessToken, options)
+          .cookie("refreshToken ",refreshToken,options)
+          .json(
+            new ApiResponse(
+              200,
+              {
+
+                user:loginInUser,accessToken,refreshToken
+              },
+              "User logged in Successfully "
+            )
+          )
+
+
+     })
+
+
+                                          // logout function 
+
+     const logoutUser=asyncHandler(async(req,res)=>{
+      await User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $set:{ refreshToken
+          
+          }
+        },
+        {
+          new:true
+        }
+      )
+      const options={
+        httpsOnly:true,
+        secure:true,
+        
+      }
+
+      return res
+      .status(200)
+      .clearCookie("accesToken ",options)
+      .clearCookie("refreshToken ", options)
+      .json(
+        new ApiResponse( 2000,{},"User LogOut successfully ")
+      )
+          
+     })
+ export {
+  registerUser,
+  loginUser,
+  logoutUser,
+};   // export as the name not by choice of your 

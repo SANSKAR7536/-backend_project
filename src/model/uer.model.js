@@ -85,7 +85,7 @@ import mongoose,{Schema} from "mongoose";
 
 
   
-   UserSchema.methods.generateAceesToken=function (){
+   UserSchema.methods.generateAcessToken=function (){
     return jwt.sign(
        {
             _id: this._id,
