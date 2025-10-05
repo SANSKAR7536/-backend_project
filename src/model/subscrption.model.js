@@ -1,6 +1,5 @@
 import mongoose,{ Schema }from "mongoose";
 
-
 const   SubscrptionSchema=new Schema({
 
     subscriber:{
