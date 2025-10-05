@@ -3,12 +3,11 @@ import { User } from "../model/uer.model.js"
 import { ApiError }  from "../utils/apiError.js"
  import { uploadOnCloudinary } from "../utils/cloudinary.js"
  import { ApiResponse } from "../utils/apiResponse.js"
-
  import jwt from "jsonwebtoken";
 // first  make a use of helper file  asynchandler form utility
 
 
-   const generateAceesTokenAndRefreshToken=async(userId)=>{
+const generateAceesTokenAndRefreshToken=async(userId)=>{
     try {
       
       const user = await User.findById(userId)
@@ -118,7 +117,7 @@ import { ApiError }  from "../utils/apiError.js"
     })
 
 
-     const loginUser=asyncHandler(async(req,res)=>{
+const loginUser=asyncHandler(async(req,res)=>{
                                               // get user data 
       const {username,email,password}=req.body; 
 
@@ -181,14 +180,13 @@ return res
 
      })
 
-
                                           // logout function 
 
-     const logoutUser = asyncHandler(async (req, res) => {
+const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: { refreshToken: 1 } 
+      $set: { refreshToken } 
     },
     { new: true }
   );
@@ -206,9 +204,7 @@ return res
 });
 
 
-
-
-     const refreshAcessToken=(asyncHandler(async(req,res)=>{
+const refreshAcessToken=(asyncHandler(async(req,res)=>{
 
        try {
          // 1- send the refresh token through cookies   or req.body if a mobile application is used as the cookies is not used it in ...
@@ -262,7 +258,9 @@ return res
 
         
      }))
- export {
+
+
+export {
   registerUser,
   loginUser,
   logoutUser,

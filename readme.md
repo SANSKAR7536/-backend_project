@@ -28,4 +28,11 @@
   2- username and email do find one to login 
   3- find the user  and check the user 
   4- access and refresh token   form the model iteself
-  5- send  data and token through cookies  
+  5- send  data and token through cookies
+  
+
+  # subscription model
+
+  1- one channnel is also a user .
+  2- subscriber are also a user .
+  3-  take user and store it on differenet 
