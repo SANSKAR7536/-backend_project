@@ -85,7 +85,7 @@ import mongoose,{Schema} from "mongoose";
 
 
   
-   UserSchema.methods.generateAcessToken=function (){
+   UserSchema.methods.generateAccessToken=function (){
     return jwt.sign(
        {
             _id: this._id,
@@ -95,7 +95,7 @@ import mongoose,{Schema} from "mongoose";
         },
         process.env.ACCESS_TOKEN_SECRET
         ,{
-            expiresIn:ACCESS_TOKEN_EXPIRY
+            expiresIn:process.env.ACCESS_TOKEN_EXPIRY
         }
 
 
@@ -110,7 +110,7 @@ import mongoose,{Schema} from "mongoose";
         },
         process.env.REFRESH_TOKEN_SECRET
         ,{
-            expiresIn:REFRESH_TOKEN_EXPIRY
+            expiresIn:process.env.REFRESH_TOKEN_EXPIRY
         }
 
 
