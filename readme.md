@@ -36,3 +36,77 @@
   1- one channnel is also a user .
   2- subscriber are also a user .
   3-  take user and store it on differenet 
+
+  # subsciption model undeerstanding 
+
+  1- why the  understanding is needed  i want to know why ---?????
+     
+      subscrpiton schema --
+
+       it has two mahor things subscriber and channel  both are user  just value 
+
+       let  user be a,b,c,d, and channel be like chai , hcc,fcc, both are user but for understanfding keep it simple 
+
+        jitni bar ek channel ko subscribe utni bar model banega  document 
+
+        let say channel =cac, sub a
+        let say channel be cac, and sub be like b,
+        let say channle be like cac and sas be like c, adn asloo subsribe to fccc.
+
+         but b say channel hcc  ko subscribe karo 
+
+
+        sooo it all  are a document 
+         major quest how to find the channel no=umber of subscriber and followers
+
+      notes-- let say for cac  select those document whose channel are caa..    //3 subsciber 
+
+       why not suibscirber count kre 
+
+       let say shannel subscirbed for c  find the subsriber ki value c kaha kaha h ,, channel ki list nikal ke le lao 
+
+
+
+  # mongo db  aggreation pipeline  understanding ---
+
+      read where --  read document on mongodb
+
+       stages each stage perform opertion  which stays on the other next satges..
+
+
+        let sya we have opperaion on one stages like 50, so in the next stage we are going to  present yah operate on the 50 data only 
+
+        synatx --  db .<kaha laga na h >. agggreate 
+
+
+        [
+          {
+            $match
+          },{
+            $lookup:
+            form  :kaha se join karu 
+            localfield:
+
+          },{} // pipielines 
+        ]
+
+         yeh array  of object ayega return me 
+          if we want  ki array nah aye -- {
+            $addfield  new filed add akarega 
+          }
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+      

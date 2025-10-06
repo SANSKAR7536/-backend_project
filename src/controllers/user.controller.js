@@ -353,10 +353,88 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "coverImage file is changed"))
 })
 
+const getUserChannelProfile=asyncHandler(async(req,res)=>{
+     //  get user by  profile  url 
+
+      const {username} =req.params
+      if( !username?.trim()) throw new ApiError(400," username is missing ")
+
+    //User find by id no  dikka
+
+     // awiatUser.findById({username})
+
+       const channel= await User.aggregate([
+        {
+          $match:{
+            username:username?.toLowerCase()
+          }
+        },
+        {
+          $lookup:{
+            from:"subscrptions",
+            localField:"_id",
+            foreignField:"channel",
+            as:"subscribers",
+
+          }
+        },
+        {
+          $lookup:{
+            from:"subscrptions",
+            localField:"_id",
+            foreignField:"subscriber",
+            as:"subscribeTo",
+
+          }
+        },
+        {
+         $addField:{
+          subscribersCount:{
+             $size:"$subscribers"
+          },
+          channelSubscribedTo:{
+            $size:"$subscribeTo"
+          },
+          isSubsribed:{
+            $cond:{
+              if:{ $in:[req.user?._id,"$subscribers.subscriber"]},
+              then:true,
+              else:false
+            }
+          }
+         } 
+        },
+        {
+          $project:{
+            fullName:1,
+            username:1,
+            subscribersCount:1,
+            channelSubscribedTo:1,
+            isSubsribed:1,
+            avatar:1,
+            coverImage:1,
+            email:1,
+
+
+          }
+        }
+       ])
+
+      // console.log(channel)
+
+      if(!channel?.length) throw new  ApiError(400,"channel doesnot exist ")
+
+      return res.
+      status(200)
+      .json(
+        new ApiResponse(200,channel[0],"User channel  fetched  successfully ")
+      )
+})
 
 export {
   registerUser,
   loginUser,
+  getUserChannelProfile,
   getCurrentUser,
   logoutUser,
   changeAccountDetails,
