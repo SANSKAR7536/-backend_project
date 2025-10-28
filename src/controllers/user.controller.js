@@ -388,7 +388,7 @@ const getUserChannelProfile=asyncHandler(async(req,res)=>{
           }
         },
         {
-         $addField:{
+         $addFields:{
           subscribersCount:{
              $size:"$subscribers"
           },
@@ -413,14 +413,14 @@ const getUserChannelProfile=asyncHandler(async(req,res)=>{
             isSubsribed:1,
             avatar:1,
             coverImage:1,
-            email:1,
+            // email:1,
 
 
           }
         }
        ])
 
-      // console.log(channel)
+      console.log(channel)
 
       if(!channel?.length) throw new  ApiError(400,"channel doesnot exist ")
 
@@ -442,5 +442,6 @@ export {
   changeCurrentPassword,
   updateUserAvatar,
   updateUserCoverImage,
+
 
 };   // export as the name not by choice of your 
