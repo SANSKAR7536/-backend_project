@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import mongoose,{Schema} from "mongoose";
 
 
- const UserSchema=Schema({
+ const UserSchema= Schema({
    
     username:{
         type:String,

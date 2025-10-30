@@ -1,6 +1,6 @@
 import mongoose,{ Schema }from "mongoose";
 
-const   SubscrptionSchema=new Schema({
+const   SubscrptionSchema= Schema({
 
     subscriber:{
         type:Schema.Types.ObjectId,
