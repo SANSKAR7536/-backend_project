@@ -1,6 +1,7 @@
 import express from "express"
  import userRouter from "./routes/user.route.js"
 import cors from "cors"
+import videoRouter from "./routes/videos.route.js"
 import cookieParser from "cookie-parser";
 const app=express();
 
@@ -32,7 +33,12 @@ const app=express();
 
   
   // routes
- app.use('/api/v1/user',userRouter)   // best practice to use this  as api then version then route   
+ app.use('/api/v1/user',userRouter) 
+
+ app.use("/api/v1/video",videoRouter)
+
+
+   // best practice to use this  as api then version then route   
   //http://localhost:8000/user/api/v1/user/register //
 
 
