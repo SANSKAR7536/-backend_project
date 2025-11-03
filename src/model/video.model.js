@@ -52,10 +52,6 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
     },
     updatedAt:{
         type:Date,
-    },
-    createdBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"user"
     }
 
 
