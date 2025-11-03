@@ -5,12 +5,14 @@ const PlaylistSchema=Schema({
         type:String,
         required:true,
         trim:true,
+        lowercase:true,
         max:50,
         min:5,
 
     },
     description:{
         type:String,
+        lowercase:true,
         trim:true,
         max:100
     },
@@ -22,11 +24,13 @@ const PlaylistSchema=Schema({
     },
     video:{
         type:mongoose.Types.ObjectId,
-        ref:'Videos'
+        ref:'Video',
+        
     },
     owner:{
         type:mongoose.Types.ObjectId,
-        ref:"Owner",
+        ref:"User",
+       
         
     }
 

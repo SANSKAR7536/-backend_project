@@ -2,6 +2,7 @@ import express from "express"
  import userRouter from "./routes/user.route.js"
 import cors from "cors"
 import videoRouter from "./routes/videos.route.js"
+import playListRouter from "./routes/playlist.route.js"
 import cookieParser from "cookie-parser";
 const app=express();
 
@@ -28,34 +29,18 @@ const app=express();
  // import userRouter from "./routes/user.route.js"
 
 
-
-
-
-  
   // routes
  app.use('/api/v1/user',userRouter) 
 
  app.use("/api/v1/video",videoRouter)
+
+ app.use("/api/v1/playlist",playListRouter)
 
 
    // best practice to use this  as api then version then route   
   //http://localhost:8000/user/api/v1/user/register //
 
 
-
-  
-  
-
-
-  
-
-
-  
   //  whenever hit this it will pass the route to userRouter and then it wil call  register method then post then async handler do its job  and then we  have  got or api response that is  " here it is my first code "
-
-
- 
-
-
 
    export { app };

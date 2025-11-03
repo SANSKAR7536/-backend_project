@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js"
 import { Video } from "../model/video.model.js";
 import { ApiResponse } from "../utils/apiResponse.js"
 import mongoose from "mongoose";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+
 
 const getAllVideos = asyncHandler(async (req, res) => {
     const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
@@ -54,57 +54,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
 
 
 })
-const uploadVideo = asyncHandler(async (req, res) => {
-    console.log(req.file);
-    const { title, description } = req.body;
 
-
-    const videoLocalPath = req.files?.videofile?.[0]?.path;
-
-    const thumbnailLocalPath = req.files?.thumbnail?.[0]?.path;
-
-    if ([description, title].some((field) => field?.trim() === "")) throw new ApiError(400, " descrption  or title is required ")
-
-    if (!videoLocalPath) throw new ApiError(400, "video  is required ")
-
-    if (!thumbnailLocalPath) throw new ApiError(400, "thumbnail is required ")
-
-    const thumbnailPath = await uploadOnCloudinary(thumbnailLocalPath);
-    if (!thumbnailPath) throw new ApiError(400, " error at uploading  thumbnail at cloudinary ");
-
-    const videoFilePath = await uploadOnCloudinary(videoLocalPath);
-    if (!videoFilePath) throw new ApiError(400, " error at uploading  video at cloudinary ");
-
-    const duration = (videoFilePath.duration / 60).toFixed(2);
-
-
-    const video = await new Video.create({
-        videoFile: videoFilePath,
-        thumbnail: thumbnailPath,
-        owner: req.user._id,
-        title,
-        description,
-        duration,
-        views: 0,
-        isPublished: true,
-
-    })
-
-    if (!video) throw new ApiError(500, "internl server error , video is not uploaded")
-
-    return res
-        .status(201)
-        .json(
-            new ApiResponse(
-                201,
-                video,
-                "video file uploaded successfully",
-            )
-        )
-
-
-
-})
 
 const getVideoById = asyncHandler(async (req, res) => {
     const { videoId } = req.params;
@@ -209,7 +159,7 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
 
 export {
     getAllVideos,
-    uploadVideo,
+   
     getVideoById,
     updateVideo,
     deleteVideo,
